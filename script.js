@@ -236,3 +236,28 @@ update = function customUpdate() {
         if (typeof oldUpdate === 'function') oldUpdate();
     }
 };
+
+
+// === Loading Splash to Main Menu ===
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        mainMenu.style.display = 'flex';
+    }, 2000); // 2-second splash
+});
+
+// === Fix Start Game Button to properly start game ===
+startGameBtn.addEventListener('click', () => {
+    mainMenu.style.display = 'none';
+    gameContainer.style.display = 'block';
+    bgMusic.play();
+    restartBtn.click(); // starts new game
+});
+
+// === Ensure game pauses when not in gameContainer ===
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && !gameOver) {
+        gameOver = true;
+        clearInterval(timerInterval);
+    }
+});

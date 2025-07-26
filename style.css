@@ -119,3 +119,17 @@ canvas {
     text-align: center;
     margin-top: 10px;
 }
+
+#loadingScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+}
+#loadingScreen img {
+    width: 150px;
+    margin-bottom: 10px;
+}
