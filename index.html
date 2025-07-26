@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bouncewood v4.2</title>
+    <title>Bouncewood v6.0</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="splash">
-        <img src="logo.png" alt="Livewood Games" id="splash-logo">
+    <div id="mainMenu">
+        <h1>Bouncewood</h1>
+        <button id="startGameBtn">Start Game</button>
+        <button id="howToPlayBtn">How to Play</button>
+        <p id="instructions" style="display:none;">
+            🕹 Move the ball, collect coins (+4s), avoid obstacles!<br>
+            🖱 Keyboard or on-screen touch controls.
+        </p>
     </div>
     <div id="gameContainer" style="display:none;">
-        <h1>Bouncewood Arcade</h1>
         <p id="score">Score: 0 | Best: 0</p>
         <p id="timer">Time: 30s</p>
         <p id="gameOver" style="display:none;">Game Over!</p>
@@ -30,6 +35,7 @@
     </div>
     <audio id="coinSound" src="coin.mp3"></audio>
     <audio id="gameOverSound" src="gameover.mp3"></audio>
+    <audio id="bgMusic" src="bgmusic.mp3" loop></audio>
     <script src="script.js"></script>
 </body>
 </html>

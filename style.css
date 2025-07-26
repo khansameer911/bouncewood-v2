@@ -88,3 +88,34 @@ canvas {
 @media (min-width: 768px) {
     #touchControls { display: none; }
 }
+#mainMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a472a, #3c8d3c);
+    color: #fff;
+}
+#mainMenu h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ffcc00;
+    text-shadow: 2px 2px #000;
+}
+#mainMenu button {
+    background: #ff6600;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#instructions {
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    margin-top: 10px;
+}

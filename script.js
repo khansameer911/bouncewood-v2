@@ -25,7 +25,16 @@ let obstacles = [];
 const ballImg = new Image();
 ballImg.src = 'ball.png';
 
-const coinImg = new Image();
+// Coin animation frames
+let coinFrames = [];
+for (let i = 0; i < 6; i++) {
+    let img = new Image();
+    img.src = `coin_${i}.png`;
+    coinFrames.push(img);
+}
+let coinFrameIndex = 0;
+let coinAnimCounter = 0;
+const coinImg = new Image(); // fallback
 coinImg.src = 'coin.png';
 
 const obstacleImg = new Image();
@@ -44,7 +53,12 @@ function createCoins() {
 
 function drawCoins() {
     coins.forEach(coin => {
-        ctx.drawImage(coinImg, coin.x - 10, coin.y - 10, 20, 20);
+        // Animate coin spin
+coinAnimCounter++;
+if (coinAnimCounter % 8 === 0) {
+    coinFrameIndex = (coinFrameIndex + 1) % coinFrames.length;
+}
+ctx.drawImage(coinFrames[coinFrameIndex], coin.x - 10, coin.y - 10, 20, 20);
     });
 }
 
@@ -111,7 +125,9 @@ function update() {
         if (y - 15 < 0) y = 15;
         if (y + 15 > canvas.height) y = canvas.height - 15;
 
-        ctx.drawImage(ballImg, x - 15, y - 15, 30, 30);
+        // Bouncing effect for ball
+let bounceScale = Math.sin(Date.now() / 120) * 2 + 28;
+ctx.drawImage(ballImg, x - bounceScale/2, y - bounceScale/2, bounceScale, bounceScale);
 
         drawCoins();
         collectCoins();
@@ -181,3 +197,42 @@ setTimeout(() => {
         gameContainer.style.display = 'block';
     }, 1000);
 }, 3000);
+
+// === Main Menu Logic ===
+const mainMenu = document.getElementById('mainMenu');
+const gameContainer = document.getElementById('gameContainer');
+const startGameBtn = document.getElementById('startGameBtn');
+const howToPlayBtn = document.getElementById('howToPlayBtn');
+const instructions = document.getElementById('instructions');
+const bgMusic = document.getElementById('bgMusic');
+
+startGameBtn.addEventListener('click', () => {
+    mainMenu.style.display = 'none';
+    gameContainer.style.display = 'block';
+    bgMusic.play();
+    restartBtn.click();
+});
+
+howToPlayBtn.addEventListener('click', () => {
+    instructions.style.display = instructions.style.display === 'none' ? 'block' : 'none';
+});
+
+// === Parallax Background Effect ===
+let bgY = 0;
+function drawParallaxBackground() {
+    bgY += 0.5;
+    if (bgY >= canvas.height) bgY = 0;
+    let bgImg = new Image();
+    bgImg.src = 'background.png';
+    ctx.drawImage(bgImg, 0, bgY - canvas.height, canvas.width, canvas.height);
+    ctx.drawImage(bgImg, 0, bgY, canvas.width, canvas.height);
+}
+
+// Replace clearRect with parallax background in update()
+const oldUpdate = update;
+update = function customUpdate() {
+    if (!gameOver) {
+        drawParallaxBackground();
+        if (typeof oldUpdate === 'function') oldUpdate();
+    }
+};
