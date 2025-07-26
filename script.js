@@ -261,3 +261,12 @@ document.addEventListener('visibilitychange', () => {
         clearInterval(timerInterval);
     }
 });
+
+// === Extra Fail-Safe: Always move to main menu after 2.5s ===
+setTimeout(() => {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen.style.display !== 'none') {
+        loadingScreen.style.display = 'none';
+        mainMenu.style.display = 'flex';
+    }
+}, 2500);
